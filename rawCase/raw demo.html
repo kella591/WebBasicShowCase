@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>For the understanding of HTML5</title>
+    <style>
+        *{ margin: 0 }
+
+        button:hover {
+            background-color: gray;
+        }
+        button:active{
+            background-color: rosybrown;
+        }
+
+        ul.five-star{
+            /*display: inline;*/
+        }
+        ul.five-star li{
+            display: inline;
+            float: left;
+            background-image: url("./images/star.png");
+            background-repeat: no-repeat;
+            background-position: -20px top;
+            width: 20px;!important;
+            height: 15px;!important;
+
+        }
+        ul.five-star li:active{
+            background-position: 0px top;
+        }
+
+        #rating {
+            width: 100px;
+            height: 20px;
+            background: transparent url(./images/star_rating.gif) repeat;
+        }
+        #rating div {
+            margin-right: 20px;
+        }
+        #rating, #rating div
+        {
+            zoom: 1;
+            position: relative;
+        }
+        #rating a {
+            position: absolute;
+            height: 20px;
+            width: 100%;
+        }
+        #rating a:hover, #rating a:visited  {
+            background: transparent url(./images/star_rating.gif) repeat;
+            background-position: 0 -20px;
+        }
+
+
+    </style>
+</head>
+<body>
+    Set margin:0 for all elements in all browser
+    <p>This is a default <code>p</code> element</p>
+    <div>
+        This is a default div
+    </div>
+    <div class="container">
+        This is a default container
+        <button>dft-btn</button>
+
+
+        <!--<ul class="five-star">-->
+        <!--<li></li>-->
+        <!--<li></li>-->
+        <!--<li></li>-->
+        <!--<li></li>-->
+        <!--<li></li>-->
+        <!--</ul>-->
+
+        <div id="rating">
+            <a href="#"></a>
+            <div>
+                <a href="#"></a>
+                <div>
+                    <a href="#"></a>
+                    <div>
+                        <a href="#"></a>
+                        <div>
+                            <a href="#"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
