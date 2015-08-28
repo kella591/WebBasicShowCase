@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head ng-app="myApp">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div ng-controller="routeCtrl">
+    {{data}}
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+<script type="text/javascript">
+    console.log('test');
+    angular.module('myApp', [])
+    .controller('routeCtrl', ['$scope', '$location',function($scope, $location){
+        var type = $location.search()['type'];
+                console.log(type);
+        $scope.data = {
+            'T1':'this is t1',
+            'T2':'this is t2'
+        }[type];
+    }]);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cart</title>
+    <style>
+        .icon-close{
+            width: 15px;!important;
+            height: 15px;!important;
+            background-color: gainsboro;
+        }
+        .icon-close:hover{
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+        }
+        .span-item{
+            float: left;
+            margin: 5px 5px;
+            background-color: gainsboro;
+        }
+        .container{
+            width: 1000px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+<div class="container" ng-controller="CartController">
+    <h1>Your Order</h1>
+    <div>
+        <h2>Input new item</h2>
+        <label>Item name</label>
+        <input type="text" ng-model="newItem.title"/>
+        <label>Item Price</label>
+        <input type="number" ng-model="newItem.price"/>
+        <button ng-click="insertItem()">Add</button>
+    </div>
+    <div class="span-item" ng-repeat="item in items">
+        <span ng-bind="item.title"></span>
+        <input ng-model="item.quantity"/>
+        <span ng-bind="item.price | currency"></span>
+        <span ng-bind="item.price * item.quantity | currency" ></span>
+        <span class="icon-close" ng-click="removeItem($index)">x</span>
+    </div>
+</div>
+
+
+<div ng-controller="selectController">
+    <select ng-model="mycity" ng-options="city.name as city.name group by city.group for city in Cities"></select>
+</div>
+
+
+<script src="../libraries/angular.min.js"></script>
+<script>
+    var myApp = angular.module('myApp', []);
+    myApp.controller('CartController', function ($scope) {
+        $scope.newItem={
+            title:'',
+            quantity: 0,
+            price: 0
+        };
+        $scope.items = [
+            {title: 'Pots', quantity: 8, price: 3.95},
+            {title: 'Dots', quantity: 17, price: 12.95},
+            {title: 'Pebbels', quantity: 5, price: 6.95}
+        ];
+        $scope.insertItem = function(){
+            $scope.items.splice(0,0,$scope.newItem);
+        }
+        $scope.removeItem = function (index) {
+            $scope.items.splice(index, 1);
+        };
+    });
+    myApp.controller('selectController', function ($scope) {
+        $scope.mycity = '北京';
+        $scope.Cities = [
+            {id: 1, name: '北京', group: '中国'},
+            {id: 2, name: '上海', group: '中国'},
+            {id: 3, name: '广州', group: '中国'},
+            {id: 4, name: '华盛顿', group: '美国'},
+            {id: 5, name: '纽约', group: '美国'},
+            {id: 6, name: '硅谷', group: '美国'}
+        ];
+    });
+</script>
+</body>
+</html>
