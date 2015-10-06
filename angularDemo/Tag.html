@@ -4,24 +4,103 @@
     <meta charset="UTF-8"/>
     <title>Cart</title>
     <style>
-        .icon-close{
+        .tagInput .icon-close{
             width: 15px;!important;
             height: 15px;!important;
             background-color: gainsboro;
         }
-        .icon-close:hover{
+        .tagInput .icon-close:hover{
             background-color: gray;
             color: white;
             cursor: pointer;
         }
-        .span-item{
+
+        .tagInput .tagator_tag {
+            display: inline-block;
+            background-color: #39f;
+            border-radius: 2px;
+            color: #fff;
+            padding: 2px 20px 2px 4px;
+            font-size: 15px;
+            margin: 5px;
+            position: relative;
+            vertical-align: top;
+        }
+        .tagInput .tagator_tag_remove {
+            font-family: simsun;
+            display: inline-block;
+            font-weight: bold;
+            color: #fff;
+            margin: 0 0 0 5px;
+            padding: 6px 2px 4px 2px;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 10px;
+            vertical-align: top;
+            border-radius: 0 2px 2px 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border-left: solid thin white;
+        }
+        .tagInput .tagator_tag_remove:hover {
+            color: #000;
+            background-color: #8cf;
+        }
+
+        .tagInput .span-item{
             float: left;
             margin: 5px 5px;
             background-color: gainsboro;
+            border-radius: 2px;
+            position: relative;
         }
+
+
+
         .container{
             width: 1000px;
         }
+
+
+        .fileInput input {
+            border:1px solid #ff9900;
+        }
+        .fileInput div {
+            width:300px;
+            position:relative;
+        }
+        .fileInput p {
+            float:left
+        }
+        .fileInput .file {
+            position:absolute;
+            top:20px;
+            right:300px;
+            top:0;
+            right:73px;
+            width:0px;
+            height:30px;
+            filter:alpha(opacity=0);
+            -moz-opacity:0;
+            opacity:0;
+        }
+        .fileInput #txt {
+            height:20px;
+            margin:1px
+        }
+        .fileInput #ii {
+            width:70px;
+            height:24px;
+            margin-top:1px;
+            margin-top:2px;
+            _margin-top:2px;
+        }
+
+
+
+
     </style>
 </head>
 <body>
@@ -30,7 +109,7 @@
 
 
 
-<div class="container" ng-controller="CartController">
+<div class="container tagInput" ng-controller="CartController">
     <h1>Your Order</h1>
     <div>
         <h2>Input new item</h2>
@@ -40,18 +119,31 @@
         <input type="number" ng-model="newItem.price"/>
         <button ng-click="insertItem()">Add</button>
     </div>
-    <div class="span-item" ng-repeat="item in items">
+    <div ng-repeat="item in items">
         <span ng-bind="item.title"></span>
         <input ng-model="item.quantity"/>
-        <span ng-bind="item.price | currency"></span>
-        <span ng-bind="item.price * item.quantity | currency" ></span>
-        <span class="icon-close" ng-click="removeItem($index)">x</span>
+
+        <div  class="tagator_tag">
+            <span ng-bind="item.price | currency"></span>
+            <span ng-bind="item.price * item.quantity | currency" ></span>
+            <div class="tagator_tag_remove" ng-click="removeItem($index)">×</div>
+            <!--<span class="icon-close" ng-click="removeItem($index)">x</span>-->
+        </div>
     </div>
 </div>
 
 
 <div ng-controller="selectController">
     <select ng-model="mycity" ng-options="city.name as city.name group by city.group for city in Cities"></select>
+</div>
+
+<div class="fileInput">
+    <form method="post" action="" enctype="multipart/form-data">
+        <p><input type="text" id="txt" name="txt" /></p>
+        <p><input id="ii" type="button" value="选择文件" /></p>
+        <p><input type="file" onchange="txt.value=this.value" class="file" />
+        </p>
+    </form>
 </div>
 
 
