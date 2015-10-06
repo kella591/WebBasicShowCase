@@ -61,6 +61,7 @@
 
         .container{
             width: 1000px;
+            padding-bottom: 10px;
         }
 
 
@@ -75,16 +76,20 @@
             float:left
         }
         .fileInput .file {
-            position:absolute;
+            /*position:absolute;*/
             top:20px;
             right:300px;
             top:0;
             right:73px;
-            width:0px;
+            width:65px;
             height:30px;
             filter:alpha(opacity=0);
             -moz-opacity:0;
             opacity:0;
+            margin-left: -70px;
+        }
+        .fileInput .btn:hover{
+            cursor: pointer;
         }
         .fileInput #txt {
             height:20px;
@@ -100,6 +105,28 @@
 
 
 
+        #rating {
+            width: 100px;
+            height: 20px;
+            background: transparent url(./images/star_rating.gif) repeat;
+        }
+        #rating div {
+            margin-right: 20px;
+        }
+        #rating, #rating div
+        {
+            zoom: 1;
+            position: relative;
+        }
+        #rating a {
+            position: absolute;
+            height: 20px;
+            width: 100%;
+        }
+        #rating a:hover, #rating .visited  {
+            background: transparent url(./images/star_rating.gif) repeat;
+            background-position: 0 -20px;
+        }
 
     </style>
 </head>
@@ -132,16 +159,37 @@
     </div>
 </div>
 
+<div class="container starRate" ng-controller="rateController">
+    <h2>Rating</h2>
+    <div id="rating">
+        <a class="{{IsVisited[1]}}" ng-click="changeVisited(1)" href="#"></a>
+        <div>
+            <a class="{{IsVisited[2]}}" ng-click="changeVisited(2)" href="#"></a>
+            <div>
+                <a class="{{IsVisited[3]}}" ng-click="changeVisited(3)" href="#"></a>
+                <div>
+                    <a class="{{IsVisited[4]}}" ng-click="changeVisited(4)" href="#"></a>
+                    <div>
+                        <a class="{{IsVisited[5]}}" ng-click="changeVisited(5)" href="#"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div ng-controller="selectController">
+    <h2>Selection grouping</h2>
     <select ng-model="mycity" ng-options="city.name as city.name group by city.group for city in Cities"></select>
 </div>
 
 <div class="fileInput">
+    <h2>File selecting</h2>
     <form method="post" action="" enctype="multipart/form-data">
         <p><input type="text" id="txt" name="txt" /></p>
-        <p><input id="ii" type="button" value="选择文件" /></p>
-        <p><input type="file" onchange="txt.value=this.value" class="file" />
+        <p class="btn"><input id="ii" type="button" value="选择文件" /></p>
+        <p class="btn"><input type="file" onchange="txt.value=this.value" class="file" />
         </p>
     </form>
 </div>
@@ -179,6 +227,13 @@
             {id: 6, name: '硅谷', group: '美国'}
         ];
     });
+    myApp.controller('rateController', function($scope){
+        $scope.IsVisited=[5];
+        $scope.changeVisited =function(index){
+            for (var i in $scope.IsVisited) {$scope.IsVisited[i] = ''}
+            $scope.IsVisited[index] = 'visited';
+        }
+    })
 </script>
 </body>
 </html>
