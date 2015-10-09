@@ -1,0 +1,299 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cart</title>
+    <style>
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .tagInput .icon-close{
+            width: 15px;!important;
+            height: 15px;!important;
+            background-color: gainsboro;
+        }
+        .tagInput .icon-close:hover{
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+        }
+
+        .tagInput .tagator_tag {
+            display: inline-block;
+            background-color: #39f;
+            border-radius: 2px;
+            color: #fff;
+            padding: 2px 20px 2px 4px;
+            font-size: 15px;
+            margin: 5px;
+            position: relative;
+            vertical-align: top;
+        }
+        .tagInput .tagator_tag_remove {
+            font-family: simsun;
+            display: inline-block;
+            font-weight: bold;
+            color: #fff;
+            margin: 0 0 0 5px;
+            padding: 6px 2px 4px 2px;
+            cursor: pointer;
+            font-size: 12px;
+            line-height: 10px;
+            vertical-align: top;
+            border-radius: 0 2px 2px 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border-left: solid thin white;
+        }
+        .tagInput .tagator_tag_remove:hover {
+            color: #000;
+            background-color: #8cf;
+        }
+
+        .tagInput .span-item{
+            float: left;
+            margin: 5px 5px;
+            background-color: gainsboro;
+            border-radius: 2px;
+            position: relative;
+        }
+
+
+
+        .container{
+            width: 1000px;
+            padding-bottom: 10px;
+        }
+
+
+        .fileInput input {
+            border:1px solid #ff9900;
+        }
+        .fileInput div {
+            width:300px;
+            position:relative;
+        }
+        .fileInput p {
+            float:left
+        }
+        .fileInput .file {
+            /*position:absolute;*/
+            top:20px;
+            right:300px;
+            top:0;
+            right:73px;
+            width:65px;
+            height:30px;
+            filter:alpha(opacity=0);
+            -moz-opacity:0;
+            opacity:0;
+            margin-left: -70px;
+        }
+        .fileInput .btn:hover{
+            cursor: pointer;
+        }
+        .fileInput #txt {
+            height:20px;
+            margin:1px
+        }
+        .fileInput #ii {
+            width:70px;
+            height:24px;
+            margin-top:1px;
+            margin-top:2px;
+            _margin-top:2px;
+        }
+
+
+
+        #rating {
+            width: 100px;
+            height: 20px;
+            background: transparent url(./images/star_rating.gif) repeat;
+        }
+        #rating div {
+            margin-right: 20px;
+        }
+        #rating, #rating div
+        {
+            zoom: 1;
+            position: relative;
+        }
+        #rating a {
+            position: absolute;
+            height: 20px;
+            width: 100%;
+        }
+        #rating a:hover, #rating .visited  {
+            background: transparent url(./images/star_rating.gif) repeat;
+            background-position: 0 -20px;
+        }
+
+
+        .listPanel{
+            position: fixed;
+            left:800px;
+            top: 200px;
+            width: 200px;
+            margin-top: 10px;
+            margin-right: 10px;
+            /*border: thin solid #e0e0e0;*/
+        }
+
+        .listPanel .heading{
+            font-size: 20px;
+            height: 30px;
+            margin: 0;
+            border: thin solid gray;
+
+        }
+        .listPanel .trigger{
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            cursor: pointer;
+        }
+
+        .listPanel .hidePanel{
+            display: none;
+        }
+
+        .listPanel .panelContent{
+            padding:3px 5px;
+            border-bottom: thin solid #e0e0e0;
+            border-left: thin solid #e0e0e0;
+            border-right: thin solid #e0e0e0;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="listPanel" ng-controller="listPanelController as panelCtrl ">
+    <h2 class="heading">Feature List</h2>
+    <div class="trigger" ng-click="isHide = !isHide">+</div>
+    <div id="List" ng-class="{true:'hidePanel',false:'panelContent'}[isHide]">      
+        <input type="text"/>
+        <li ng-repeat="x in featureList">{{x.name}}</li>
+    </div>
+
+</div>
+
+
+
+<div class="container tagInput" ng-controller="CartController">
+    <h2>Your Order</h2>
+    <div>
+        <h2>Input new item</h2>
+        <label>Item name</label>
+        <input type="text" ng-model="newItem.title"/>
+        <label>Item Price</label>
+        <input type="number" ng-model="newItem.price"/>
+        <button ng-click="insertItem()">Add</button>
+    </div>
+    <div ng-repeat="item in items">
+        <span ng-bind="item.title"></span>
+        <input ng-model="item.quantity"/>
+
+        <div  class="tagator_tag">
+            <span ng-bind="item.price | currency"></span>
+            <span ng-bind="item.price * item.quantity | currency" ></span>
+            <div class="tagator_tag_remove" ng-click="removeItem($index)">×</div>
+            <!--<span class="icon-close" ng-click="removeItem($index)">x</span>-->
+        </div>
+    </div>
+</div>
+
+<div class="container starRate" ng-controller="rateController">
+    <h2>Rating</h2>
+    <div id="rating">
+        <a class="{{IsVisited[1]}}" ng-click="changeVisited(1)" href="#"></a>
+        <div>
+            <a class="{{IsVisited[2]}}" ng-click="changeVisited(2)" href="#"></a>
+            <div>
+                <a class="{{IsVisited[3]}}" ng-click="changeVisited(3)" href="#"></a>
+                <div>
+                    <a class="{{IsVisited[4]}}" ng-click="changeVisited(4)" href="#"></a>
+                    <div>
+                        <a class="{{IsVisited[5]}}" ng-click="changeVisited(5)" href="#"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div ng-controller="selectController">
+    <h2>Selection grouping</h2>
+    <select ng-model="mycity" ng-options="city.name as city.name group by city.group for city in Cities"></select>
+</div>
+
+<div class="fileInput">
+    <h2>File selecting</h2>
+    <form method="post" action="" enctype="multipart/form-data">
+        <p><input type="text" id="txt" name="txt" /></p>
+        <p class="btn"><input id="ii" type="button" value="选择文件" /></p>
+        <p class="btn"><input type="file" onchange="txt.value=this.value" class="file" />
+        </p>
+    </form>
+</div>
+
+
+<script src="../libraries/angular.min.js"></script>
+<script>
+    var myApp = angular.module('myApp', []);
+    myApp.controller('listPanelController',function($scope){
+        $scope.isHide = false;
+        $scope.featureList = [
+            {
+                name:'test feaure 1'
+
+            }
+        ]
+
+    });
+    myApp.controller('CartController', function ($scope) {
+        $scope.newItem={
+            title:'',
+            quantity: 0,
+            price: 0
+        };
+        $scope.items = [
+            {title: 'Pots', quantity: 8, price: 3.95},
+            {title: 'Dots', quantity: 17, price: 12.95},
+            {title: 'Pebbels', quantity: 5, price: 6.95}
+        ];
+        $scope.insertItem = function(){
+            $scope.items.splice(0,0,$scope.newItem);
+        }
+        $scope.removeItem = function (index) {
+            $scope.items.splice(index, 1);
+        };
+    });
+    myApp.controller('selectController', function ($scope) {
+        $scope.mycity = '北京';
+        $scope.Cities = [
+            {id: 1, name: '北京', group: '中国'},
+            {id: 2, name: '上海', group: '中国'},
+            {id: 3, name: '广州', group: '中国'},
+            {id: 4, name: '华盛顿', group: '美国'},
+            {id: 5, name: '纽约', group: '美国'},
+            {id: 6, name: '硅谷', group: '美国'}
+        ];
+    });
+    myApp.controller('rateController', function($scope){
+        $scope.IsVisited=[5];
+        $scope.changeVisited =function(index){
+            for (var i in $scope.IsVisited) {$scope.IsVisited[i] = ''}
+            $scope.IsVisited[index] = 'visited';
+        }
+    })
+</script>
+</body>
+</html>
