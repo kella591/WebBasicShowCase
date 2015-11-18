@@ -1,0 +1,181 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-group{
+    display: block;
+    clear: both;
+    float: left;
+}
+.container{
+    width: 1000px;
+    padding-bottom: 10px;
+    float: left;
+}
+
+.countDown .timetag{
+    width: 150px;
+    padding: 5px;
+    text-align: center;
+}
+.countDown .lastdaytag{
+    color: darkred;
+    font-weight: bold;
+}
+
+.tagInput .icon-close{
+    width: 15px;!important;
+    height: 15px;!important;
+    background-color: gainsboro;
+}
+.tagInput .icon-close:hover{
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+}
+
+.tagInput .tagator_tag {
+    display: inline-block;
+    background-color: #39f;
+    border-radius: 2px;
+    color: #fff;
+    padding: 2px 20px 2px 4px;
+    font-size: 15px;
+    margin: 5px;
+    position: relative;
+    vertical-align: top;
+}
+.tagInput .tagator_tag_remove {
+    font-family: simsun;
+    display: inline-block;
+    font-weight: bold;
+    color: #fff;
+    margin: 0 0 0 5px;
+    padding: 6px 2px 4px 2px;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 10px;
+    vertical-align: top;
+    border-radius: 0 2px 2px 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-left: solid thin white;
+}
+.tagInput .tagator_tag_remove:hover {
+    color: #000;
+    background-color: #8cf;
+}
+
+.tagInput .span-item{
+    float: left;
+    margin: 5px 5px;
+    background-color: gainsboro;
+    border-radius: 2px;
+    position: relative;
+    border-color: #3399ff;
+    text-align: center;
+    font-weight: 600;
+
+}
+
+
+
+
+
+.fileInput input {
+    border:1px solid #ff9900;
+}
+/*.fileInput div {*/
+    /*width:300px;*/
+    /*position:relative;*/
+/*}*/
+.fileInput p {
+    float:left
+}
+.fileInput .file {
+    /*position:absolute;*/
+    width:65px;
+    height:30px;
+    filter:alpha(opacity=0);
+    -moz-opacity:0;
+    opacity:0;
+    margin-left: -70px;
+}
+.fileInput .btn:hover{
+    cursor: pointer;
+}
+.fileInput #txt {
+    height:20px;
+    margin:1px
+}
+.fileInput #ii {
+    width:70px;
+    height:24px;
+    margin-top:1px;
+    _margin-top:2px;
+}
+
+
+
+#rating {
+    width: 100px;
+    height: 20px;
+    background: transparent url(./images/star_rating.gif) repeat;
+}
+#rating div {
+    margin-right: 20px;
+}
+#rating, #rating div
+{
+    zoom: 1;
+    position: relative;
+}
+#rating a {
+    position: absolute;
+    height: 20px;
+    width: 100%;
+}
+#rating a:hover, #rating .visited  {
+    background: transparent url(./images/star_rating.gif) repeat;
+    background-position: 0 -20px;
+}
+
+
+.listPanel{
+    position: fixed;
+    left:800px;
+    top: 200px;
+    width: 200px;
+    margin-top: 10px;
+    margin-right: 10px;
+    /*border: thin solid #e0e0e0;*/
+}
+
+.listPanel .heading{
+    font-size: 20px;
+    height: 30px;
+    margin: 0;
+    border: thin solid gray;
+
+}
+.listPanel .trigger{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}
+
+.listPanel .hidePanel{
+    display: none;
+}
+
+.listPanel .panelContent{
+    padding:3px 5px;
+    border-bottom: thin solid #e0e0e0;
+    border-left: thin solid #e0e0e0;
+    border-right: thin solid #e0e0e0;
+}

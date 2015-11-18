@@ -3,176 +3,9 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Cart</title>
+    <link rel="stylesheet" href="styles/commonStyle.css"/>
     <style>
-        * {
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-        }
 
-        .tagInput .icon-close{
-            width: 15px;!important;
-            height: 15px;!important;
-            background-color: gainsboro;
-        }
-        .tagInput .icon-close:hover{
-            background-color: gray;
-            color: white;
-            cursor: pointer;
-        }
-
-        .tagInput .tagator_tag {
-            display: inline-block;
-            background-color: #39f;
-            border-radius: 2px;
-            color: #fff;
-            padding: 2px 20px 2px 4px;
-            font-size: 15px;
-            margin: 5px;
-            position: relative;
-            vertical-align: top;
-        }
-        .tagInput .tagator_tag_remove {
-            font-family: simsun;
-            display: inline-block;
-            font-weight: bold;
-            color: #fff;
-            margin: 0 0 0 5px;
-            padding: 6px 2px 4px 2px;
-            cursor: pointer;
-            font-size: 12px;
-            line-height: 10px;
-            vertical-align: top;
-            border-radius: 0 2px 2px 0;
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            border-left: solid thin white;
-        }
-        .tagInput .tagator_tag_remove:hover {
-            color: #000;
-            background-color: #8cf;
-        }
-
-        .tagInput .span-item{
-            float: left;
-            margin: 5px 5px;
-            background-color: gainsboro;
-            border-radius: 2px;
-            position: relative;
-            border-color: #3399ff;
-            text-align: center;
-            font-weight: 600;
-
-        }
-
-
-
-        .container{
-            width: 1000px;
-            padding-bottom: 10px;
-        }
-
-
-        .fileInput input {
-            border:1px solid #ff9900;
-        }
-        .fileInput div {
-            width:300px;
-            position:relative;
-        }
-        .fileInput p {
-            float:left
-        }
-        .fileInput .file {
-            /*position:absolute;*/
-            top:20px;
-            right:300px;
-            top:0;
-            right:73px;
-            width:65px;
-            height:30px;
-            filter:alpha(opacity=0);
-            -moz-opacity:0;
-            opacity:0;
-            margin-left: -70px;
-        }
-        .fileInput .btn:hover{
-            cursor: pointer;
-        }
-        .fileInput #txt {
-            height:20px;
-            margin:1px
-        }
-        .fileInput #ii {
-            width:70px;
-            height:24px;
-            margin-top:1px;
-            margin-top:2px;
-            _margin-top:2px;
-        }
-
-
-
-        #rating {
-            width: 100px;
-            height: 20px;
-            background: transparent url(./images/star_rating.gif) repeat;
-        }
-        #rating div {
-            margin-right: 20px;
-        }
-        #rating, #rating div
-        {
-            zoom: 1;
-            position: relative;
-        }
-        #rating a {
-            position: absolute;
-            height: 20px;
-            width: 100%;
-        }
-        #rating a:hover, #rating .visited  {
-            background: transparent url(./images/star_rating.gif) repeat;
-            background-position: 0 -20px;
-        }
-
-
-        .listPanel{
-            position: fixed;
-            left:800px;
-            top: 200px;
-            width: 200px;
-            margin-top: 10px;
-            margin-right: 10px;
-            /*border: thin solid #e0e0e0;*/
-        }
-
-        .listPanel .heading{
-            font-size: 20px;
-            height: 30px;
-            margin: 0;
-            border: thin solid gray;
-
-        }
-        .listPanel .trigger{
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            cursor: pointer;
-        }
-
-        .listPanel .hidePanel{
-            display: none;
-        }
-
-        .listPanel .panelContent{
-            padding:3px 5px;
-            border-bottom: thin solid #e0e0e0;
-            border-left: thin solid #e0e0e0;
-            border-right: thin solid #e0e0e0;
-        }
 
     </style>
 </head>
@@ -233,19 +66,35 @@
 </div>
 
 
-<div ng-controller="selectController">
+<div class="container" ng-controller="selectController">
     <h2>Selection grouping</h2>
     <select ng-model="mycity" ng-options="city.name as city.name group by city.group for city in Cities"></select>
 </div>
 
-<div class="fileInput">
+<div class="container fileInput">
     <h2>File selecting</h2>
-    <form method="post" action="" enctype="multipart/form-data">
+    <div class="form-group" >
         <p><input type="text" id="txt" name="txt" /></p>
         <p class="btn"><input id="ii" type="button" value="选择文件" /></p>
         <p class="btn"><input type="file" onchange="txt.value=this.value" class="file" />
         </p>
-    </form>
+    </div>
+</div>
+
+<div class="container countDown" ng-controller="countController">
+    <h2>Count Down</h2>
+    <div>
+        <label for="">End Time</label>
+        <!--<input type="date" ng-model="endTime"/>-->
+        <button ng-click ="startCount()">start</button>
+    </div>
+    <div ng-repeat="i in timearr" class="timetag" ><span ng-class="{true:'lastdaytag',false:''}[i.isLastDay]" ng-bind="i.gap"></span></div>
+</div>
+
+
+
+<div class="container" ng-controller="MyController">
+    <h5>{{ clock }}</h5>
 </div>
 
 
@@ -298,6 +147,97 @@
             $scope.IsVisited[index] = 'visited';
         }
     })
+
+    myApp.controller('countController',function($scope){
+        $scope.timearr = [
+            {"time":"2015-11-18 20:30:20"},
+            {"time":"2015-12-22"},
+            {"time":"2016-01-22"},
+            {"time":"2015-11-22"},
+            {"time":"2016-11-19"},
+            {"time":"2016-03-22"},
+            {"time":"2015-11-18"},
+            {"time":"2016-01-12"},
+            {"time":"2015-11-30"}
+        ]
+        var getDay = function(mmt){
+            return Math.floor(mmt/1000/60/60/24);
+        }
+        var getHour = function(mmt){
+            return Math.floor(mmt/1000/60/60%24);
+        }
+        var getMin = function(mmt){
+            return Math.floor(mmt/1000/60 %60);
+        }
+        var getSec = function(mmt){
+            return Math.floor(mmt/1000 %60);
+        }
+        var checkTime = function(i)
+        {
+            if (i<10)
+            {i="0" + i}
+            return i
+        }
+        var getGapTime = function(mmt){
+            if (mmt<0) return "DUE";
+            var d = getDay(mmt);
+            var h = getHour(mmt);
+            var m = checkTime(getMin(mmt));
+            var s = checkTime(getSec(mmt));
+            var show = ""
+            if (d!=0){
+                h = checkTime(h)
+                return d+" days ";
+//                        +h+" hours";
+            }
+            return h+":"+m+":"+s;
+
+        }
+
+        $scope.startCount = function() {
+            var p = setInterval(function () {
+
+                var currentT = new Date();
+                for (var i in $scope.timearr){
+                    var endT = new Date($scope.timearr[i].time);
+                    var t = endT.getTime() - currentT.getTime();
+                    if (t<=86400000) $scope.timearr[i].isLastDay = true;
+                    $scope.$apply(function () {
+                        $scope.timearr[i].gap = getGapTime(t);
+                    });
+                }
+
+            }, 1000);
+        }
+
+
+
+//        $scope.startCount = function(){
+//            var p = setInterval(setCount(),1000);
+//        }
+//        var setCount = function () {
+//
+//            var currentT = new Date();
+//            var endT = new Date($scope.endTime);
+//            var t = endT.getTime() - currentT.getTime();
+//            console.log('gapmmS:', t);
+//            $scope.$apply(function(){$scope.gap = getGapTime(t);});
+//
+//        };
+
+    })
+    myApp.controller('MyController', function($scope) {
+        $scope.person = { name: "Ari Lerner" };
+        var updateClock = function() {
+            $scope.clock = new Date();
+        };
+        var timer = setInterval(function() {
+            $scope.$apply(updateClock);
+        }, 1000);
+        updateClock();
+    });
+
+
 </script>
 </body>
 </html>
